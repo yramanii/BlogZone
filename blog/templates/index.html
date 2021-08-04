@@ -1,0 +1,120 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Blog-Zone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' href="static/blog.css">
+  <style>
+    #general_image{
+    float: left; 
+    height: 50px;
+    width: 50px;
+    /*border: solid 2px #444;*/
+    position: relative; 
+    /* top: -32px;
+    right: -12px; */
+} 
+  </style>
+</head>
+
+
+
+
+<body style="background-image: url('/static/image7.jpg'); background-size: cover;">
+
+    <div class="container">
+
+        <div class='index-header' style="background-color: dimgrey; color:khaki; font-family:'cursive'">
+
+            <h1 id='header1'><img id="header-image" src="/static/download.png"> Welcome to Blog-Zone</h1>
+        </div>
+            <br><br>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Blog-Zone</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+              
+                    <li><a href="contact/"><span class="glyphicon glyphicon-envelope"></span> Contact </a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+
+                    {% if user.is_authenticated %}
+                        <p style="color: lightblue;">Welcome, {{user}}</p>
+                      <li><a href="createblog/"><span class="glyphicon glyphicon-pencil"></span> Create Blog </a></li>
+                      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                      
+                    {% else %}
+                      <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
+                      <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                    {% endif %}
+                  
+                  </ul>
+                </div>
+              </nav>
+
+
+        <div class="body" style="color:whitesmoke;">
+            <p>-> In this, we are covering some tpoics about <b>how to write a blog.</b> </p>
+
+            <p>-> Here is the <a href='https://dwarkadairies.blogspot.com/' style="color: darkkhaki;" target="_blank">site of mine</a>, where
+                I wrote my blog.</p>
+
+            <p>What is Blog?</p>
+            <address>A blog (a shortened version of “weblog”) is an online journal or informational website displaying
+                information in reverse chronological order, with the latest posts appearing first, at the top. It is a
+                platform where a writer or a group of writers share their views on an individual subject.</address>
+
+            
+                <div class="data" style="font-family:Verdana, Geneva, Tahoma, sans-serif;">
+                  
+                  <!-- <h2>{{ text }}</h2> -->
+
+                  {% for data in object_list %}
+                      <li style="border: solid 1px lightsteelblue;"> <h2 style="text-align:justify;"> Title: <strong>{{ data.title }}</strong>
+                      
+                        <ul>
+                          
+                          <li>
+                            <p> -> Author: {{data.author}} </p>
+                          </li>
+
+                          <li>
+                            <p> -> {{data.input}} </p>
+                          </li>
+
+                        </ul>
+                          
+                        
+                        <!-- <p> -> This was created by <strong> {{data.author}} </strong> and <br> the <strong>content </strong> is {{data.input}}. </p> -->
+                  
+                      
+                    </h2> </li>
+                  {% endfor %}
+                  </div>
+
+
+
+        </div><br><br>
+
+        <p id='random'></p>
+
+
+        <footer style="color: whitesmoke; border: solid 1px lightblue; padding: 10px;">
+            &copy; <b>Yash Ramani (2021).</b>
+        </footer>
+    </div>
+
+    <script src="/static/blog.js">
+    </script>
+
+</body>
+
+</html>

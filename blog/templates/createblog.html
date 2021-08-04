@@ -1,0 +1,36 @@
+{% load crispy_forms_tags %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create your blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+          </div>
+        </div>
+    </nav>
+    <p style="text-align: justify; margin-left: 15%; position: relative;"><strong> -> You can create your blog here. </strong></p>
+
+    <div style="display: flex; justify-content: center; width: 50%;">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form1|crispy }}
+        <input type="submit" value="Submit">
+
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+.contact{
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.contact-header{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:royalblue;
+    background-color:lightgrey;
+    padding: 15px;
+    border: solid 2px black;
+}
+
+input[type=text] {
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 5px 5px darkblue;
+}
+
+
+input[type=email] {
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 5px 5px darkkhaki;
+}
+
+textarea {
+    padding: 10px;
+    margin: 5px;
+}
+
+input[type=submit]:hover {
+    background-color: green;
+}
