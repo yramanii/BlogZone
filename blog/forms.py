@@ -1,7 +1,9 @@
+from blog.email import send_email
 from django import forms
 from .models import contact, createBlog # login
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Fieldset, Layout, Submit, ButtonHolder
+from .tasks import send_mail_task
 
 class contactForm(forms.ModelForm):
 
@@ -25,6 +27,10 @@ class contactForm(forms.ModelForm):
 
         model = contact
         fields = '__all__'
+
+    def send_email(self):
+        send_mail_task.delay(
+            self.cleaned_data['First_Name'], self.cleaned_data['Email'], self.cleaned_data['Description'])
 
 
 class blogForm(forms.ModelForm):

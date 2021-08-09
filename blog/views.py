@@ -5,26 +5,52 @@ from django.views.generic import ListView, TemplateView
 from .models import createBlog
 from .forms import blogForm
 from django.http.response import HttpResponseRedirect
+from django.http import HttpResponse
 
 
 # Function Based Views
 
-def contact(request):
+# def contact(request):
 
-    form = contactForm()
+#     form = contactForm()
 
-    if request.method == 'POST':
-        print(request.POST)
-        form = contactForm(request.POST)
+#     if request.method == 'POST':
+#         print(request.POST)
+#         form = contactForm(request.POST)
 
-        if form.is_valid():
-            form.save()
 
-            return HttpResponseRedirect('/contact')
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('/contact')
     
-    context = {'form': form}
+#     context = {'form': form}
 
-    return render (request, 'contact.html', context)
+#     return render (request, 'contact.html', context)
+
+
+class contact(FormView):
+    template_name = 'contact.html'
+    form_class = contactForm
+
+    def form_valid(self, form):
+        form.send_email()
+        
+        # return HttpResponse("Thanks for the review!")
+        return HttpResponseRedirect('/contact')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = self.form_class
+        context = {'form':form}
+        return context
+
+    # First, we are saving our contact form data into DB but now we don't save the data although we sent the mail of data to the user.
+    # def post(self, request):
+    #     form = blogForm(request.POST, request.FILES or None)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect('/createblog')
+
 
 # class based views
 

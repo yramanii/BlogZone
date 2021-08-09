@@ -1,0 +1,10 @@
+Hello {{First_Name|safe}},
+
+Here is a copy of your review:
+
+{{Description|safe}}
+
+
+Thank you!
+From,
+BlogZone.

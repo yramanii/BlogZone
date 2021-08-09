@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from blog import views
-from blog.views import HomePageView, createBlog, LoginView, signupView
+from blog.views import HomePageView, createBlog, LoginView, signupView, contact
 
 from django.conf import settings
 from django.views.static import serve
@@ -28,7 +28,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='index'),
-    path('contact/', views.contact, name='contact'),
+    path('contact/', contact.as_view(), name='contact'),
     path('createblog/', createBlog.as_view(), name='create blog'),
     path('login/', LoginView.as_view(), name='login'),
     path('signup/', signupView.as_view(), name='signup'),
