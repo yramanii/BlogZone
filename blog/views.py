@@ -34,6 +34,7 @@ class contact(FormView):
 
     def form_valid(self, form):
         form.send_email()
+        form.save()
         
         # return HttpResponse("Thanks for the review!")
         return HttpResponseRedirect('/contact')
@@ -44,7 +45,6 @@ class contact(FormView):
         context = {'form':form}
         return context
 
-    # First, we are saving our contact form data into DB but now we don't save the data although we sent the mail of data to the user.
     # def post(self, request):
     #     form = blogForm(request.POST, request.FILES or None)
     #     if form.is_valid():
