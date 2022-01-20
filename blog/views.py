@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .forms import contactForm, signupForm
 from django.views.generic.edit import FormView
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 from .models import createBlog
 from .forms import blogForm
 from django.http.response import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict
 
 
 # Function Based Views
@@ -114,7 +114,7 @@ class LoginView(TemplateView):
 
 
 
-class createBlog(FormView):
+class CreateBlog(FormView):
     
     template_name = 'createblog.html'
     form_class = blogForm
@@ -130,7 +130,36 @@ class createBlog(FormView):
         form = blogForm(request.POST, request.FILES or None)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/createblog')
+            return HttpResponseRedirect('/')
+
+# for slug
+def details(request, slug_text):
+    query = createBlog.objects.filter(slug=slug_text)
+    if query.exists():
+        query = query.first()
+    else:
+        return HttpResponse("<h1> Page not found. </h1>")
+    context = {
+        'post':query
+    }
+
+    return render(request, 'details.html', context)
+# ------------------------------------------------------------------------------------------
+# REST-API
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
+
+from blog.serializers import blogPostSerializer
+
+class blogApiView(ModelViewSet):
+    queryset = createBlog.objects.all()[::-1]
+    serializer_class = blogPostSerializer
+    permission_class = [IsAuthenticated]
+    throttle_scope = 'blogapi'
+    # success_url = reverse_lazy('index')    
+
+
+
 
 
     

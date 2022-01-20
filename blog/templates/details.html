@@ -1,0 +1,174 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Blog-Zone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            width: 1500px;
+            height: 1000px;
+            margin: 0 auto;
+        }
+
+        .index-header {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+
+            padding: 10px;
+            border: solid 2px black;
+        }
+
+        nav {
+            font-size: x-large;
+        }
+
+
+        #header-image {
+            float: right;
+            height: 100px;
+            border: solid 2px #444;
+            position: relative;
+            top: -32px;
+            right: -12px;
+        }
+
+
+
+        p {
+            font-size: x-large;
+        }
+
+
+
+
+        .contact {
+            background: rgb(238, 174, 202);
+            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+        }
+
+        .contact-header {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: royalblue;
+            background-color: lightgrey;
+            padding: 5px;
+            border: solid 2px black;
+        }
+
+        input[type=text] {
+            padding: 5px;
+            margin: 5px;
+            box-shadow: 5px 5px darkblue;
+        }
+
+
+        input[type=email] {
+            padding: 5px;
+            margin: 5px;
+            box-shadow: 5px 5px darkkhaki;
+        }
+
+        textarea {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        input[type=submit]:hover {
+            background-color: green;
+        }
+    </style>
+</head>
+
+
+
+
+<body style="background-image: url('/static/image7.jpg'); background-size: cover;">
+
+    <div class="container">
+
+        <div class='index-header' style="background-color: dimgrey; color:khaki; font-family:'cursive'">
+
+            <h1 id='header1'><img id="header-image" src="/static/download.png"> Welcome to Blog-Zone</h1>
+        </div>
+        <br><br>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> Home
+                    </a></li>
+
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Details
+                        </a></li>
+
+                    <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-envelope"></span> Contact </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    {% if user.is_authenticated %}
+                    <p style="color: lightblue;">Welcome, {{user}}</p>
+                    <li><a href="createblog/"><span class="glyphicon glyphicon-pencil"></span> Create Blog </a></li>
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+
+                    {% else %}
+                    <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
+                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="body" style="color:whitesmoke;">
+
+
+
+            <div class="data" style="font-family:Verdana, Geneva, Tahoma, sans-serif;">
+
+                <!-- <h2>{{ text }}</h2> -->
+
+                <li style="border: solid 1px lightsteelblue;">
+                    <h2 style="text-align:justify;"> Title: <strong>{{ post.title }}</strong>
+
+                        <ul>
+
+                            <li>
+                                <p> -> Author: {{post.author}} </p>
+                            </li>
+
+                            <li>
+                                <p> -> {{post.input}} </p>
+                            </li>
+
+                        </ul>
+
+
+
+                    </h2>
+                </li>
+
+            </div>
+
+
+
+        </div><br><br>
+
+        <p id='random'></p>
+
+
+        <footer style="color: whitesmoke; border: solid 1px lightblue; padding: 10px;">
+            &copy; <b>Yash Ramani (2021).</b>
+        </footer>
+    </div>
+
+    <script src="/static/blog.js">
+    </script>
+
+</body>
+
+</html>

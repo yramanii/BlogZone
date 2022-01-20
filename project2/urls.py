@@ -13,27 +13,35 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import django
 from django.contrib import admin
-from django.urls import path
-from django.urls.conf import include
-from blog import views
-from blog.views import HomePageView, createBlog, LoginView, signupView, contact
-
+from django.template import base
+from django.urls import path, include
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls import url
 from django.conf.urls.static import static
+ 
+from blog.views import HomePageView, CreateBlog, LoginView, signupView, contact, details, blogApiView
+
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('blog-post', blogApiView, basename='blogapi')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', HomePageView.as_view(), name='index'),
     path('contact/', contact.as_view(), name='contact'),
-    path('createblog/', createBlog.as_view(), name='create blog'),
+    path('createblog/', CreateBlog.as_view(), name='create blog'),
     path('login/', LoginView.as_view(), name='login'),
     path('signup/', signupView.as_view(), name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
-    
+    path('post/<slug:slug_text>', details),
+
+    path('api/', include(router.urls)),
+    path('api-auth/', include("rest_framework.urls")),
+
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # if settings.DEBUG:
